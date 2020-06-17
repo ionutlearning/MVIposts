@@ -1,6 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
   ext.kotlin_version = "1.3.72"
+  ext.safe_args = '2.2.2'
   repositories {
     google()
     jcenter()
@@ -8,6 +9,7 @@ buildscript {
   dependencies {
     classpath "com.android.tools.build:gradle:4.0.0"
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$safe_args"
 
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
@@ -23,4 +25,17 @@ allprojects {
 
 task clean(type: Delete) {
   delete rootProject.buildDir
+}
+
+ext {
+  coroutine_version = '1.2.1'
+  dagger_version = '2.24'
+  lifecycle_version = '2.2.0'
+  nav_version = '2.2.2'
+  retrofit_coroutine_adapter_version = '0.9.2'
+  retrofit_version = '2.4.0'
+  recyclerview = '1.0.0'
+  constraintlayout = '1.1.3'
+  cardview = '1.0.0'
+  glide = '4.11.0'
 }
