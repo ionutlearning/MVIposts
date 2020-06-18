@@ -28,8 +28,8 @@ class HomeViewModel @Inject constructor(private val dispatcher: Dispatcher) : Ba
             when (result) {
                 is HomeResult.Loading -> viewState.copy(isLoading = true)
                 is HomeResult.Success -> viewState.copy(items = result.items)
-                is HomeResult.Failure -> viewState.copy(error = RuntimeException("error"))
-                else -> viewState.copy(error = RuntimeException("error"))
+                is HomeResult.Failure -> viewState.copy(isError = true)
+                else -> viewState.copy(isError = true)
             }
         }
     }

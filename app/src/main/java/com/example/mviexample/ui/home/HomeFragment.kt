@@ -31,6 +31,10 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        registerObserver()
+    }
+
+    private fun registerObserver() {
         viewModel.onEvent(HomeEvent.FetchData)
         viewModel.data.observe(viewLifecycleOwner, Observer {
             render(it)
@@ -50,7 +54,7 @@ class HomeFragment : BaseFragment() {
                         adapter = PostsAdapter(items) { id -> onItemClicked(id) }
                     }
                 }
-                error != null -> println("aici123 error")
+                isError -> showErrorMessageDialog { registerObserver() }
             }
         }
     }

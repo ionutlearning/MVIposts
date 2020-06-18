@@ -7,9 +7,17 @@ import com.example.mviexample.domain.action.HomeAction
 import com.example.mviexample.domain.result.HomeResult
 import com.example.mviexample.domain.result.Result
 import com.example.mviexample.repository.Repository
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
 import javax.inject.Inject
 
 class HomeDispatcherImpl @Inject constructor(private val repository: Repository) : Dispatcher {
+
+    companion object {
+        const val TIMEOUT_LIMIT = 10000L
+    }
 
     override fun dispatchAction(action: Action): LiveData<Result> = liveData {
         when (action) {
@@ -21,16 +29,20 @@ class HomeDispatcherImpl @Inject constructor(private val repository: Repository)
     }
 
     private suspend fun fetchRemotePosts(): Result {
-        return try {
-            val response = repository.getPostsAsync().await()
-            val body = response.body() ?: emptyList()
-            if (response.isSuccessful && body.isNotEmpty()) {
-                HomeResult.Success(body)
-            } else {
-                HomeResult.Failure("aici123 error")
+        return withContext(IO) {
+            try {
+                withTimeout(TIMEOUT_LIMIT) {
+                    val response = repository.getPostsAsync().await()
+                    val body = response.body() ?: emptyList()
+                    if (response.isSuccessful && body.isNotEmpty()) {
+                        return@withTimeout HomeResult.Success(body)
+                    } else {
+                        return@withTimeout HomeResult.Failure
+                    }
+                }
+            } catch (exception: CancellationException) {
+                return@withContext HomeResult.Failure
             }
-        } catch (e: Exception) {
-            HomeResult.Failure("aici123 error")
         }
     }
 }

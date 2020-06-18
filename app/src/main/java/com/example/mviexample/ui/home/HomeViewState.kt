@@ -6,5 +6,5 @@ import com.example.mviexample.ui.base.ViewState
 data class HomeViewState(
     val isLoading: Boolean = false,
     val items: List<Post> = emptyList(),
-    val error: Throwable? = null
+    val isError: Boolean = false
 ) : ViewState
