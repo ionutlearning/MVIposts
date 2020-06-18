@@ -1,6 +1,6 @@
 package com.example.mviexample.di
 
-import com.example.mviexample.api.BooksService
+import com.example.mviexample.api.PostsService
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
@@ -28,7 +28,7 @@ class NetworkModule {
     @Provides
     fun provideRetrofitClient(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("")
+            .baseUrl("https://jsonplaceholder.typicode.com")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
@@ -38,6 +38,6 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideService(retrofit: Retrofit): BooksService =
-        retrofit.create(BooksService::class.java)
+    fun providePostsService(retrofit: Retrofit): PostsService =
+        retrofit.create(PostsService::class.java)
 }

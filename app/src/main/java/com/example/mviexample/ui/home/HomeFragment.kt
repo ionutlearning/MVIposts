@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mviexample.R
 import com.example.mviexample.databinding.FragmentHomeBinding
-import com.example.mviexample.model.Post
 import com.example.mviexample.ui.base.BaseFragment
 
 class HomeFragment : BaseFragment() {
@@ -29,9 +29,25 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dataBinding.postItems.run {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = PostsAdapter(listOf(Post(1, "title", "desc"))) { id -> onItemClicked(id) }
+        viewModel.getPosts()
+        viewModel.data.observe(viewLifecycleOwner, Observer {
+            render(it)
+        })
+    }
+
+    private fun render(viewState: HomeViewState) {
+        dataBinding.viewState = viewState
+        viewState.run {
+            when {
+                isLoading -> return
+                items != null -> {
+                    dataBinding.postItems.run {
+                        layoutManager = LinearLayoutManager(requireContext())
+                        adapter = PostsAdapter(items) { id -> onItemClicked(id) }
+                    }
+                }
+                error != null -> println("aici123 error")
+            }
         }
     }
 
