@@ -1,7 +1,7 @@
 package com.example.mviexample.di
 
 import com.example.mviexample.repository.Repository
-import com.example.mviexample.repository.RepositoryImpl
+import com.example.mviexample.repository.PostsRepositoryImpl
 import dagger.Binds
 import dagger.Module
 
@@ -9,5 +9,5 @@ import dagger.Module
 abstract class RepositoryModule {
 
     @Binds
-    abstract fun bindRepository(impl: RepositoryImpl): Repository
+    abstract fun bindRepository(impl: PostsRepositoryImpl): Repository
 }

@@ -7,5 +7,5 @@ import com.example.mviexample.repository.Repository
 import javax.inject.Inject
 
 interface Dispatcher {
-//    fun dispatchAction(action: Action): LiveData<Result>
+    fun dispatchAction(action: Action): LiveData<Result>
 }

@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mviexample.R
 import com.example.mviexample.databinding.FragmentHomeBinding
+import com.example.mviexample.domain.event.HomeEvent
 import com.example.mviexample.ui.base.BaseFragment
 
 class HomeFragment : BaseFragment() {
@@ -29,7 +30,8 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getPosts()
+
+        viewModel.onEvent(HomeEvent.FetchData)
         viewModel.data.observe(viewLifecycleOwner, Observer {
             render(it)
         })
@@ -40,9 +42,11 @@ class HomeFragment : BaseFragment() {
         viewState.run {
             when {
                 isLoading -> return
-                items != null -> {
+                items.isNotEmpty() -> {
                     dataBinding.postItems.run {
-                        layoutManager = LinearLayoutManager(requireContext())
+                        val verticalLayout =
+                            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                        layoutManager = verticalLayout
                         adapter = PostsAdapter(items) { id -> onItemClicked(id) }
                     }
                 }
