@@ -2,6 +2,7 @@ package com.example.mviexample.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.mviexample.ui.detail.DetailsViewModel
 import com.example.mviexample.ui.home.HomeViewModel
 import dagger.Binds
 import dagger.MapKey
@@ -18,6 +19,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(HomeViewModel::class)
     abstract fun bindHomeViewModel(homeViewModel: HomeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailsViewModel::class)
+    abstract fun bindDetailsViewModel(detailsViewModel: DetailsViewModel): ViewModel
 }
 
 @Target(

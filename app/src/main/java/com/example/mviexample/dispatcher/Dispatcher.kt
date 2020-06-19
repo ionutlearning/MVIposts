@@ -7,5 +7,11 @@ import com.example.mviexample.repository.Repository
 import javax.inject.Inject
 
 interface Dispatcher {
+
+    companion object {
+        const val DISPATCHER_HOME = "dispatcher_home"
+        const val DISPATCHER_DETAILS = "dispatcher_details"
+    }
+
     fun dispatchAction(action: Action): LiveData<Result>
 }
