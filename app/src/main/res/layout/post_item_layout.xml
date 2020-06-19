@@ -22,11 +22,11 @@
             android:id="@+id/image"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            app:imageUrl="@{imageUrl}"
             android:layout_gravity="center_vertical"
+            android:src="@color/colorPrimary"
+            app:imageUrl="@{imageUrl}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:background="@color/colorPrimary" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/title"
