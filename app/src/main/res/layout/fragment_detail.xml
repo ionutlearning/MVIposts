@@ -35,7 +35,7 @@
 
                 <ImageView
                     android:id="@+id/backdrop"
-                    android:src="@{post.imageUrl}"
+                    app:imageUrl="@{post.imageUrl}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
