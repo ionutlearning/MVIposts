@@ -22,6 +22,8 @@ class HomeFragment : BaseFragment() {
 
     private lateinit var dataBinding: FragmentHomeBinding
 
+    private val mAdapter = PostsAdapter { postUi -> onItemClicked(postUi) }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,8 +34,21 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        setupContent()
         registerObserver()
+    }
+
+    private fun setupContent() {
+        dataBinding.content.postItems.run {
+            val verticalLayout =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            layoutManager = verticalLayout
+            adapter = mAdapter
+        }
+
+        dataBinding.content.errorMessage.setOnClickListener {
+            registerObserver()
+        }
     }
 
     private fun registerObserver() {
@@ -44,19 +59,10 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun render(viewState: HomeViewState) {
-        dataBinding.viewState = viewState
         viewState.run {
-            when {
-                isLoading -> return
-                posts.isNotEmpty() && photos.isNotEmpty() -> {
-                    dataBinding.content.postItems.run {
-                        val verticalLayout =
-                            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                        layoutManager = verticalLayout
-                        adapter = PostsAdapter(AdapterItem(posts, photos)) { postUi -> onItemClicked(postUi) }
-                    }
-                }
-                isError -> showErrorMessageDialog { registerObserver() }
+            dataBinding.viewState = this
+            if (posts.isNotEmpty() && photos.isNotEmpty()) {
+                mAdapter.setup(AdapterItem(posts, photos))
             }
         }
     }

@@ -33,7 +33,7 @@ class DetailsDispatcherImpl @Inject constructor(private val repository: Reposito
                     val comments = response.body() ?: emptyList()
 
                     if (response.isSuccessful) {
-                        return@withTimeout DetailsResult.Success(comments)
+                        return@withTimeout DetailsResult.Success(comments.take(3))
                     } else {
                         return@withTimeout DetailsResult.Failure
                     }

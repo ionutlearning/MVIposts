@@ -9,12 +9,17 @@ import com.example.mviexample.R
 import com.example.mviexample.databinding.CommentItemLayoutBinding
 import com.example.mviexample.model.Comment
 
-class CommentsAdapter(
-    private val comments: List<Comment>
-) :
+class CommentsAdapter :
     RecyclerView.Adapter<CommentsAdapter.CommentsViewHolder>() {
 
     private lateinit var dataBinding: CommentItemLayoutBinding
+
+    private var comments: List<Comment> = emptyList()
+
+    fun setup(comments: List<Comment>) {
+        this.comments = comments
+        notifyDataSetChanged()
+    }
 
     class CommentsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -31,7 +36,6 @@ class CommentsAdapter(
     override fun getItemCount() = comments.size
 
     override fun onBindViewHolder(holder: CommentsViewHolder, position: Int) {
-        val comment = comments[position]
-        dataBinding.comment = comment
+        dataBinding.comment = comments[position]
     }
 }

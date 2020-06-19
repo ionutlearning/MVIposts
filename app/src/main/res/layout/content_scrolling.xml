@@ -7,6 +7,10 @@
         <import type="android.view.View" />
 
         <variable
+            name="error"
+            type="Boolean" />
+
+        <variable
             name="loading"
             type="Boolean" />
     </data>
@@ -27,5 +31,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="@{loading ? View.VISIBLE: View.GONE }" />
+
+        <TextView
+            android:id="@+id/errorMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableTop="@drawable/ic_warning"
+
+            android:padding="30dp"
+            android:text="@string/general_error_message"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:visibility="@{error ? View.VISIBLE: View.GONE }" />
     </merge>
 </layout>

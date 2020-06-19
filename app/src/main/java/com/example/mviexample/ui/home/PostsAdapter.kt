@@ -11,13 +11,16 @@ import com.example.mviexample.model.AdapterItem
 import com.example.mviexample.model.PostUi
 import kotlin.random.Random
 
-class PostsAdapter(
-    private val adapterItem: AdapterItem,
-    private val callback: (postUi: PostUi) -> Unit
-) :
+class PostsAdapter(private val callback: (postUi: PostUi) -> Unit) :
     RecyclerView.Adapter<PostsAdapter.PostViewHolder>() {
 
     private lateinit var dataBinding: PostItemLayoutBinding
+    private var adapterItem: AdapterItem = AdapterItem(emptyList(), emptyList())
+
+    fun setup(adapterItem: AdapterItem) {
+        this.adapterItem = adapterItem
+        notifyDataSetChanged()
+    }
 
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 

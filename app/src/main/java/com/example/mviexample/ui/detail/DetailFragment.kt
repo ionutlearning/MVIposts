@@ -22,6 +22,7 @@ class DetailFragment : BaseFragment() {
     private lateinit var dataBinding: FragmentDetailBinding
     private val args: DetailFragmentArgs by navArgs()
     private lateinit var post: PostUi
+    private val mAdapter = CommentsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,24 +35,29 @@ class DetailFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         post = args.post
-        dataBinding.post = post
+        setupContent()
         registerObserver()
     }
 
+    private fun setupContent() {
+        dataBinding.post = post
+        dataBinding.content.postItems.run {
+            val verticalLayout =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            layoutManager = verticalLayout
+            adapter = mAdapter
+        }
+
+        dataBinding.content.errorMessage.setOnClickListener {
+            registerObserver()
+        }
+    }
+
     private fun render(viewState: DetailsViewState) {
-        dataBinding.viewState = viewState
         viewState.run {
-            when {
-                isLoading -> return
-                comments.isNotEmpty() -> {
-                    dataBinding.content.postItems.run {
-                        val verticalLayout =
-                            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                        layoutManager = verticalLayout
-                        adapter = CommentsAdapter(comments.take(3))
-                    }
-                }
-                isError -> showErrorMessageDialog { registerObserver() }
+            dataBinding.viewState = this
+            if (comments.isNotEmpty()) {
+                mAdapter.setup(comments)
             }
         }
     }

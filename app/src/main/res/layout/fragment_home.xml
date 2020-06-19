@@ -44,6 +44,7 @@
 
         <include
             android:id="@+id/content"
+            bind:error="@{viewState.error}"
             bind:loading="@{viewState.loading}"
             layout="@layout/content_scrolling" />
 
