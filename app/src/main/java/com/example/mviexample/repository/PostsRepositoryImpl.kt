@@ -11,5 +11,6 @@ import javax.inject.Inject
 class PostsRepositoryImpl @Inject constructor(private val service: PostsService) : Repository {
     override fun getPostsAsync(): Deferred<Response<List<Post>>> = service.getPostsAsync()
     override fun getPhotosAsync(): Deferred<Response<List<Photo>>> = service.getPhotosAsync()
-    override fun getCommentsAsync(id: Int): Deferred<Response<List<Comment>>> = service.getCommentsAsync(id)
+    override fun getCommentsAsync(id: Int): Deferred<Response<List<Comment>>> =
+        service.getCommentsAsync(id)
 }

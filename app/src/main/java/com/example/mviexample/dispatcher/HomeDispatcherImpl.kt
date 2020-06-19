@@ -7,6 +7,7 @@ import com.example.mviexample.domain.action.HomeAction
 import com.example.mviexample.domain.result.HomeResult
 import com.example.mviexample.domain.result.Result
 import com.example.mviexample.repository.Repository
+import com.example.mviexample.repository.Repository.Companion.TIMEOUT_LIMIT
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
@@ -14,10 +15,6 @@ import kotlinx.coroutines.withTimeout
 import javax.inject.Inject
 
 class HomeDispatcherImpl @Inject constructor(private val repository: Repository) : Dispatcher {
-
-    companion object {
-        const val TIMEOUT_LIMIT = 10000L
-    }
 
     override fun dispatchAction(action: Action): LiveData<Result> = liveData {
         when (action) {
