@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mviexample.R
 import com.example.mviexample.databinding.FragmentHomeBinding
 import com.example.mviexample.domain.event.HomeEvent
+import com.example.mviexample.model.PostUi
 import com.example.mviexample.ui.base.BaseFragment
 
 class HomeFragment : BaseFragment() {
@@ -46,12 +47,12 @@ class HomeFragment : BaseFragment() {
         viewState.run {
             when {
                 isLoading -> return
-                items.isNotEmpty() -> {
+                posts.isNotEmpty() && photos.isNotEmpty() -> {
                     dataBinding.postItems.run {
                         val verticalLayout =
                             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                         layoutManager = verticalLayout
-                        adapter = PostsAdapter(items) { id -> onItemClicked(id) }
+                        adapter = PostsAdapter(PostUi(posts, photos)) { id -> onItemClicked(id) }
                     }
                 }
                 isError -> showErrorMessageDialog { registerObserver() }

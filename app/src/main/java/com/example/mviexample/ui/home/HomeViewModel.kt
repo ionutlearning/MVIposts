@@ -27,7 +27,7 @@ class HomeViewModel @Inject constructor(private val dispatcher: Dispatcher) : Ba
         data = Transformations.map(dispatcher.dispatchAction(HomeAction.FetchRemoteData)) { result ->
             when (result) {
                 is HomeResult.Loading -> viewState.copy(isLoading = true)
-                is HomeResult.Success -> viewState.copy(items = result.items)
+                is HomeResult.Success -> viewState.copy(posts = result.posts, photos = result.photos)
                 is HomeResult.Failure -> viewState.copy(isError = true)
                 else -> viewState.copy(isError = true)
             }

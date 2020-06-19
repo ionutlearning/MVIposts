@@ -7,10 +7,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mviexample.R
 import com.example.mviexample.databinding.PostItemLayoutBinding
-import com.example.mviexample.model.Post
+import com.example.mviexample.model.PostUi
+import kotlin.random.Random
 
 class PostsAdapter(
-    private val items: List<Post>,
+    private val postUi: PostUi,
     private val callback: (id: Int) -> Unit
 ) :
     RecyclerView.Adapter<PostsAdapter.PostViewHolder>() {
@@ -29,13 +30,14 @@ class PostsAdapter(
         return PostViewHolder(dataBinding.root)
     }
 
-    override fun getItemCount() = items.size
+    override fun getItemCount() = postUi.posts.size
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        val post = items[position]
+        val post = postUi.posts[position]
         dataBinding.root.setOnClickListener {
             callback(post.id)
         }
         dataBinding.post = post
+        dataBinding.imageUrl = postUi.photos[Random.nextInt(postUi.photos.size)].thumbnailUrl
     }
 }

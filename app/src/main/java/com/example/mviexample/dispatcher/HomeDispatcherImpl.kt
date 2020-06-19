@@ -32,10 +32,14 @@ class HomeDispatcherImpl @Inject constructor(private val repository: Repository)
         return withContext(IO) {
             try {
                 withTimeout(TIMEOUT_LIMIT) {
-                    val response = repository.getPostsAsync().await()
-                    val body = response.body() ?: emptyList()
-                    if (response.isSuccessful && body.isNotEmpty()) {
-                        return@withTimeout HomeResult.Success(body)
+                    val postsResponse = repository.getPostsAsync().await()
+                    val posts = postsResponse.body() ?: emptyList()
+
+                    val photosResponse = repository.getPhotosAsync().await()
+                    val photos = photosResponse.body() ?: emptyList()
+
+                    if (postsResponse.isSuccessful && photosResponse.isSuccessful) {
+                        return@withTimeout HomeResult.Success(posts, photos)
                     } else {
                         return@withTimeout HomeResult.Failure
                     }
