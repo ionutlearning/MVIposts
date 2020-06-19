@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mviexample.R
 import com.example.mviexample.databinding.FragmentHomeBinding
 import com.example.mviexample.domain.event.HomeEvent
+import com.example.mviexample.model.AdapterItem
 import com.example.mviexample.model.PostUi
 import com.example.mviexample.ui.base.BaseFragment
 
@@ -52,7 +53,7 @@ class HomeFragment : BaseFragment() {
                         val verticalLayout =
                             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                         layoutManager = verticalLayout
-                        adapter = PostsAdapter(PostUi(posts, photos)) { id -> onItemClicked(id) }
+                        adapter = PostsAdapter(AdapterItem(posts, photos)) { postUi -> onItemClicked(postUi) }
                     }
                 }
                 isError -> showErrorMessageDialog { registerObserver() }
@@ -60,8 +61,8 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun onItemClicked(id: Int) {
-        val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(id)
+    private fun onItemClicked(postUi: PostUi) {
+        val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(postUi)
         findNavController().navigate(action)
     }
 }
