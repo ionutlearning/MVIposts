@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
         <variable
             name="viewState"
             type="com.example.mviexample.ui.home.HomeViewState" />
@@ -33,27 +32,20 @@
                 app:toolbarId="@+id/toolbar">
 
                 <androidx.appcompat.widget.Toolbar
+                    app:title="@string/posts"
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
-                    app:title="@string/posts"
-                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+                    app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
-      <ProgressBar
-          android:visibility="@{viewState.loading ? View.VISIBLE: View.GONE }"
-          android:layout_gravity="center"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content" />
-
-      <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/postItems"
-        android:visibility="@{!viewState.loading ? View.VISIBLE: View.GONE }"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <include
+            android:id="@+id/content"
+            bind:loading="@{viewState.loading}"
+            layout="@layout/content_scrolling" />
 
       <com.google.android.material.floatingactionbutton.FloatingActionButton
           android:id="@+id/fab"

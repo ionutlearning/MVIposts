@@ -49,7 +49,7 @@ class HomeFragment : BaseFragment() {
             when {
                 isLoading -> return
                 posts.isNotEmpty() && photos.isNotEmpty() -> {
-                    dataBinding.postItems.run {
+                    dataBinding.content.postItems.run {
                         val verticalLayout =
                             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                         layoutManager = verticalLayout
