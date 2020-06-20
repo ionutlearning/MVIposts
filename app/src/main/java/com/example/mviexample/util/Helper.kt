@@ -11,18 +11,20 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.mviexample.R
 
 @BindingAdapter("imageUrl")
-fun loadImage(view: ImageView, url: String) {
-    val currentDrawable = view.drawable
-    val options = RequestOptions()
-        .placeholder(getProgressDrawable(view.context))
-        .error(currentDrawable)
-    Glide.with(view.context)
-        .setDefaultRequestOptions(options)
-        .load(getUrl(url))
-        .into(view)
+fun loadImage(view: ImageView, url: String?) {
+    url?.let {
+        val currentDrawable = view.drawable
+        val options = RequestOptions()
+            .placeholder(getProgressDrawable(view.context))
+            .error(currentDrawable)
+        Glide.with(view.context)
+            .setDefaultRequestOptions(options)
+            .load(getUrl(it))
+            .into(view)
+    }
 }
 
-private fun getUrl(url: String): GlideUrl {
+private fun getUrl(url: String?): GlideUrl {
     return GlideUrl(
         url,
         LazyHeaders.Builder()
