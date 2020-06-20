@@ -1,29 +1,43 @@
 package com.example.mviexample.ui.home
 
-import androidx.lifecycle.MutableLiveData
-import com.example.mviexample.repository.Repository
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.liveData
+import com.example.mviexample.dispatcher.Dispatcher
+import com.example.mviexample.dispatcher.Dispatcher.Companion.DISPATCHER_HOME
+import com.example.mviexample.domain.action.HomeAction
+import com.example.mviexample.domain.event.Event
+import com.example.mviexample.domain.event.HomeEvent
+import com.example.mviexample.domain.result.HomeResult
 import com.example.mviexample.ui.base.BaseViewModel
-import kotlinx.coroutines.*
-import java.lang.RuntimeException
+import com.example.mviexample.ui.base.EventListener
 import javax.inject.Inject
+import javax.inject.Named
 
-class HomeViewModel @Inject constructor(private val repository: Repository) : BaseViewModel() {
+class HomeViewModel @Inject constructor(@Named(DISPATCHER_HOME) private val dispatcher: Dispatcher) :
+    BaseViewModel(), EventListener {
 
-    val viewState = HomeViewState()
-    val data = MutableLiveData<HomeViewState>()
+    private val viewState = HomeViewState()
+    var data: LiveData<HomeViewState> = liveData { viewState }
 
-    fun getPosts() {
-        runBlocking {
-            coroutineScope {
-                data.value = viewState.copy(isLoading = true)
-                val posts = repository.getPosts()
-                val response = posts.await()
-                if (response.isSuccessful) {
-                    data.value = viewState.copy(items = response.body())
-                } else {
-                    data.value = viewState.copy(error = RuntimeException("xxx"))
+    override fun onEvent(event: Event) {
+        when (event) {
+            is HomeEvent.FetchData -> fetchData()
+        }
+    }
+
+    private fun fetchData() {
+        data =
+            Transformations.map(dispatcher.dispatchAction(HomeAction.FetchRemoteData)) { result ->
+                when (result) {
+                    is HomeResult.Loading -> viewState.copy(isLoading = true)
+                    is HomeResult.Success -> viewState.copy(
+                        posts = result.posts,
+                        photos = result.photos
+                    )
+                    is HomeResult.Failure -> viewState.copy(isError = true)
+                    else -> viewState.copy(isError = true)
                 }
             }
-        }
     }
 }

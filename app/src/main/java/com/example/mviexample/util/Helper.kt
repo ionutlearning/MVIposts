@@ -5,24 +5,39 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.request.RequestOptions
+import com.example.mviexample.R
 
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, url: String?) {
-    val currentDrawable = view.drawable
-    val options = RequestOptions()
-        .placeholder(getProgressDrawable(view.context))
-        .error(currentDrawable)
-    Glide.with(view.context)
-        .setDefaultRequestOptions(options)
-        .load(url)
-        .into(view)
+    url?.let {
+        val currentDrawable = view.drawable
+        val options = RequestOptions()
+            .placeholder(getProgressDrawable(view.context))
+            .error(currentDrawable)
+        Glide.with(view.context)
+            .setDefaultRequestOptions(options)
+            .load(getUrl(it))
+            .into(view)
+    }
+}
+
+private fun getUrl(url: String?): GlideUrl {
+    return GlideUrl(
+        url,
+        LazyHeaders.Builder()
+            .addHeader("User-Agent", "https")
+            .build()
+    )
 }
 
 private fun getProgressDrawable(context: Context): CircularProgressDrawable {
     return CircularProgressDrawable(context).apply {
-        strokeWidth = 10f
-        centerRadius = 50f
+        strokeWidth = 5f
+        centerRadius = 25f
+        setColorSchemeColors(context.resources.getColor(R.color.colorAccent))
         start()
     }
 }

@@ -8,6 +8,9 @@
         <variable
             name="post"
             type="com.example.mviexample.model.Post" />
+        <variable
+            name="imageUrl"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,21 +18,34 @@
         android:layout_height="wrap_content"
         android:padding="5dp">
 
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:imageUrl="@{imageUrl}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/title"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:text="@{post.title}"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="title" />
 
         <TextView
             android:id="@+id/description"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:text="@{post.body}"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image"
             app:layout_constraintTop_toBottomOf="@id/title"
             tools:text="description" />
 

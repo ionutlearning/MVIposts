@@ -1,6 +1,6 @@
 package com.example.mviexample.di
 
-import com.example.mviexample.ui.detail.DetailFragment
+import com.example.mviexample.ui.detail.DetailsFragment
 import com.example.mviexample.ui.home.HomeFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -11,5 +11,5 @@ abstract class FragmentModule {
     abstract fun homeFragment(): HomeFragment
 
     @ContributesAndroidInjector
-    abstract fun detailFragment(): DetailFragment
+    abstract fun detailsFragment(): DetailsFragment
 }
