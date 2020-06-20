@@ -8,7 +8,6 @@ import com.example.mviexample.domain.result.HomeResult
 import com.example.mviexample.domain.result.Result
 import com.example.mviexample.repository.Repository
 import com.example.mviexample.repository.Repository.Companion.TIMEOUT_LIMIT
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout

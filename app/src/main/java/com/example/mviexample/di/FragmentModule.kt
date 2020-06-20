@@ -11,5 +11,5 @@ abstract class FragmentModule {
     abstract fun homeFragment(): HomeFragment
 
     @ContributesAndroidInjector
-    abstract fun detailFragment(): DetailsFragment
+    abstract fun detailsFragment(): DetailsFragment
 }

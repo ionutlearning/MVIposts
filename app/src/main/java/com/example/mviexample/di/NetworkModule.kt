@@ -5,13 +5,16 @@ import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
 class NetworkModule {
+
+    companion object {
+        const val BASE_URL = "https://jsonplaceholder.typicode.com"
+    }
 
     @Singleton
     @Provides
@@ -21,12 +24,11 @@ class NetworkModule {
     @Provides
     fun provideRetrofitClient(gson: Gson): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
     }
-
 
     @Singleton
     @Provides
