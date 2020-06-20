@@ -19,6 +19,7 @@ class MainActivity : DaggerAppCompatActivity() {
         navController = Navigation.findNavController(this, R.id.navigation)
         navController.addOnDestinationChangedListener(fragmentNavigationListener)
         NavigationUI.setupActionBarWithNavController(this, navController)
+        supportActionBar?.title = ""
     }
 
     private val fragmentNavigationListener =
