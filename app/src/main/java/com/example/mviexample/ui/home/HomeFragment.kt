@@ -39,7 +39,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setupContent() {
-        dataBinding.content.postItems.run {
+        dataBinding.content.recyclerView.run {
             val verticalLayout =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             layoutManager = verticalLayout
