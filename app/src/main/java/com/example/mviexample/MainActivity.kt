@@ -45,13 +45,13 @@ class MainActivity : DaggerAppCompatActivity() {
                     val post: PostUi = arguments?.get("post") as PostUi
                     dataBinding.imageUrl = post.imageUrl
                     dataBinding.toolbarLayout.title = post.title
-                    dataBinding.fab.setImageDrawable(resources.getDrawable(R.drawable.ic_discuss))
+                    dataBinding.fab.setImageResource(R.drawable.ic_discuss)
                 }
                 R.id.homeFragment -> {
                     menuItem?.isVisible = true
                     dataBinding.backdrop.visibility = GONE
                     dataBinding.toolbarLayout.title = getString(R.string.posts)
-                    dataBinding.fab.setImageDrawable(resources.getDrawable(android.R.drawable.ic_dialog_email))
+                    dataBinding.fab.setImageResource(android.R.drawable.ic_dialog_email)
                 }
             }
         }
