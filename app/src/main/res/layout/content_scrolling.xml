@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:padding="@dimen/big_space"
             android:visibility="@{loading ? View.VISIBLE: View.GONE }" />
 
         <TextView
@@ -37,8 +38,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:drawableTop="@drawable/ic_warning"
-
-            android:padding="30dp"
+            android:paddingStart="@dimen/small_space"
+            android:paddingTop="@dimen/big_space"
+            android:paddingEnd="@dimen/small_space"
+            android:paddingBottom="@dimen/big_space"
             android:text="@string/general_error_message"
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
