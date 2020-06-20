@@ -19,17 +19,9 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
-            .build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideRetrofitClient(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
+    fun provideRetrofitClient(gson: Gson): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://jsonplaceholder.typicode.com")
-            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()

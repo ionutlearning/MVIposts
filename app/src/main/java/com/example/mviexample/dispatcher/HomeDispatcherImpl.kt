@@ -41,7 +41,7 @@ class HomeDispatcherImpl @Inject constructor(private val repository: Repository)
                         return@withTimeout HomeResult.Failure
                     }
                 }
-            } catch (exception: CancellationException) {
+            } catch (exception: Exception) {
                 exception.printStackTrace()
                 return@withContext HomeResult.Failure
             }

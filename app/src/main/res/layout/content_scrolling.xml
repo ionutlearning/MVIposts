@@ -23,7 +23,7 @@
             android:id="@+id/postItems"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{!loading ? View.VISIBLE: View.GONE }"
+            android:visibility="@{!loading &amp;&amp; !error ? View.VISIBLE: View.GONE }"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <ProgressBar

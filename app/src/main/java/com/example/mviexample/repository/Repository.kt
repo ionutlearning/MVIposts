@@ -9,7 +9,7 @@ import retrofit2.Response
 interface Repository {
 
     companion object {
-        const val TIMEOUT_LIMIT = 5000L
+        const val TIMEOUT_LIMIT = 10000L
     }
 
     fun getPostsAsync(): Deferred<Response<List<Post>>>

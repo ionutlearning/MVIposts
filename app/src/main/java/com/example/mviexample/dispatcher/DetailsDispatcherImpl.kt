@@ -8,10 +8,7 @@ import com.example.mviexample.domain.result.DetailsResult
 import com.example.mviexample.domain.result.Result
 import com.example.mviexample.repository.Repository
 import com.example.mviexample.repository.Repository.Companion.TIMEOUT_LIMIT
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class DetailsDispatcherImpl @Inject constructor(private val repository: Repository) : Dispatcher {
@@ -38,7 +35,7 @@ class DetailsDispatcherImpl @Inject constructor(private val repository: Reposito
                         return@withTimeout DetailsResult.Failure
                     }
                 }
-            } catch (exception: CancellationException) {
+            } catch (exception: Exception) {
                 exception.printStackTrace()
                 return@withContext DetailsResult.Failure
             }
