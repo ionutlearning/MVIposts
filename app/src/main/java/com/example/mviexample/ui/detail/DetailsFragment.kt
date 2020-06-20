@@ -15,12 +15,12 @@ import com.example.mviexample.domain.event.DetailsEvent
 import com.example.mviexample.model.PostUi
 import com.example.mviexample.ui.base.BaseFragment
 
-class DetailFragment : BaseFragment() {
+class DetailsFragment : BaseFragment() {
 
     private val viewModel: DetailsViewModel by viewModels { viewModelFactory }
 
     private lateinit var dataBinding: FragmentDetailBinding
-    private val args: DetailFragmentArgs by navArgs()
+    private val args: DetailsFragmentArgs by navArgs()
     private lateinit var post: PostUi
     private val mAdapter = CommentsAdapter()
 

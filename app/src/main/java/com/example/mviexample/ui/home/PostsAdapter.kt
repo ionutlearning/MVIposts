@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mviexample.R
 import com.example.mviexample.databinding.PostItemLayoutBinding
-import com.example.mviexample.model.AdapterItem
+import com.example.mviexample.model.PostsAdapterItem
 import com.example.mviexample.model.PostUi
 import kotlin.random.Random
 
@@ -15,10 +15,10 @@ class PostsAdapter(private val callback: (postUi: PostUi) -> Unit) :
     RecyclerView.Adapter<PostsAdapter.PostViewHolder>() {
 
     private lateinit var dataBinding: PostItemLayoutBinding
-    private var adapterItem: AdapterItem = AdapterItem(emptyList(), emptyList())
+    private var postsAdapterItem: PostsAdapterItem = PostsAdapterItem(emptyList(), emptyList())
 
-    fun setup(adapterItem: AdapterItem) {
-        this.adapterItem = adapterItem
+    fun setup(postsAdapterItem: PostsAdapterItem) {
+        this.postsAdapterItem = postsAdapterItem
         notifyDataSetChanged()
     }
 
@@ -34,12 +34,12 @@ class PostsAdapter(private val callback: (postUi: PostUi) -> Unit) :
         return PostViewHolder(dataBinding.root)
     }
 
-    override fun getItemCount() = adapterItem.posts.size
+    override fun getItemCount() = postsAdapterItem.posts.size
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        val post = adapterItem.posts[position]
+        val post = postsAdapterItem.posts[position]
         dataBinding.post = post
-        val imageUrl = adapterItem.photos[Random.nextInt(adapterItem.photos.size)].thumbnailUrl
+        val imageUrl = postsAdapterItem.photos[Random.nextInt(postsAdapterItem.photos.size)].thumbnailUrl
         dataBinding.imageUrl = imageUrl
         dataBinding.root.setOnClickListener {
             callback(PostUi(post.userId, post.id, post.title, post.body, imageUrl))

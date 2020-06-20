@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.example.mviexample.ui.detail.DetailFragment"
+        android:name="com.example.mviexample.ui.detail.DetailsFragment"
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="post"

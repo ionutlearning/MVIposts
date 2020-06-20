@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mviexample.R
 import com.example.mviexample.databinding.FragmentHomeBinding
 import com.example.mviexample.domain.event.HomeEvent
-import com.example.mviexample.model.AdapterItem
+import com.example.mviexample.model.PostsAdapterItem
 import com.example.mviexample.model.PostUi
 import com.example.mviexample.ui.base.BaseFragment
 
@@ -62,7 +62,7 @@ class HomeFragment : BaseFragment() {
         viewState.run {
             dataBinding.viewState = this
             if (posts.isNotEmpty() && photos.isNotEmpty()) {
-                mAdapter.setup(AdapterItem(posts, photos))
+                mAdapter.setup(PostsAdapterItem(posts, photos))
             }
         }
     }
